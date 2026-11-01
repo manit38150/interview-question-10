@@ -1,0 +1,178 @@
+:host {
+  display: block;
+}
+
+main {
+  max-width: 770px;
+  margin: 24px auto;
+  padding: 0 12px;
+}
+
+.brand {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #46564c;
+}
+
+.exam-panel {
+  border: 2px solid #161616;
+  min-height: 494px;
+  background: #fff;
+}
+
+h1 {
+  margin: 0;
+  padding: 6px 12px;
+  border-bottom: 2px solid #161616;
+  background: #00b050;
+  color: #111;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+form {
+  padding: 8px 52px 58px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+.name-row label {
+  white-space: nowrap;
+}
+
+.name-row input {
+  width: 378px;
+  max-width: 100%;
+  min-width: 0;
+  height: 27px;
+  padding: 2px 8px;
+  border: 1px solid #111;
+  border-radius: 0;
+}
+
+.name-row input[readonly] {
+  background: #fff;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 4px 8px 30px;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  min-height: 27px;
+  cursor: pointer;
+}
+
+.option input {
+  appearance: none;
+  margin: 0;
+  width: 21px;
+  height: 21px;
+  border: 1px solid #858585;
+  border-radius: 50%;
+  background: #b7b7b7;
+  cursor: pointer;
+}
+
+.option input:checked {
+  background: #111;
+}
+
+.option input:disabled {
+  opacity: 1;
+}
+
+fieldset:disabled .option,
+fieldset:disabled input {
+  cursor: default;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  margin-top: 34px;
+}
+
+button {
+  min-width: 111px;
+  min-height: 36px;
+  border: 1px solid #315795;
+  padding: 6px 16px;
+  background: #4472c4;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #355da6;
+}
+
+button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #e8a100;
+  outline-offset: 3px;
+}
+
+.score {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.validation {
+  margin: 8px 8px 12px;
+  color: #b42318;
+}
+
+.status {
+  padding: 24px 52px;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin: 12px auto;
+  }
+
+  form,
+  .status {
+    padding: 16px 18px 36px;
+  }
+
+  .name-row {
+    margin-left: 0;
+  }
+
+  fieldset {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .actions {
+    gap: 18px;
+  }
+}

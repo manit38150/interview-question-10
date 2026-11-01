@@ -1,0 +1,56 @@
+<main>
+  <section class="exam-panel" aria-labelledby="screen-title" [attr.aria-busy]="loading() || submitting()">
+    <h1 id="screen-title">IT 10-1</h1>
+
+    @if (!questions().length) {
+      <div class="status">
+        <p [attr.role]="error() ? 'alert' : 'status'">{{ error() || 'ยังไม่มีข้อสอบในระบบ' }}</p>
+        <button type="button" (click)="loadQuestions()">ลองอีกครั้ง</button>
+      </div>
+    } @else {
+      <form (ngSubmit)="submit()" novalidate>
+        <div class="name-row">
+          <label for="full-name">ชื่อ-สกุล</label>
+          <input id="full-name" name="fullName" type="text" autocomplete="name" required maxlength="200"
+            [ngModel]="fullName()" (ngModelChange)="fullName.set($event)"
+            [readonly]="!!result()" [disabled]="submitting()"
+            [attr.aria-invalid]="attempted() && !fullName().trim()"
+            [attr.aria-describedby]="attempted() && !fullName().trim() ? 'name-error' : null" />
+        </div>
+        @if (attempted() && !fullName().trim()) {
+          <p class="validation" id="name-error" role="alert">กรุณากรอกชื่อ-สกุล</p>
+        }
+
+        @for (question of questions(); track question.id; let index = $index) {
+          <fieldset [disabled]="submitting() || !!result()"
+            [attr.aria-describedby]="attempted() && !answerFor(question.id) ? 'question-error-' + question.id : null">
+            <legend>{{ index + 1 }}. {{ question.questionText }}</legend>
+            @for (option of question.options; track option.id) {
+              <label class="option">
+                <input type="radio" [name]="'question-' + question.id" [value]="option.id"
+                  [checked]="answerFor(question.id) === option.id"
+                  (change)="selectAnswer(question.id, option.id)" />
+                <span>{{ option.optionText }}</span>
+              </label>
+            }
+            @if (attempted() && !answerFor(question.id)) {
+              <p class="validation" [id]="'question-error-' + question.id" role="alert">กรุณาเลือกคำตอบ</p>
+            }
+          </fieldset>
+        }
+
+        @if (error()) {
+          <p class="validation" role="alert">{{ error() }}</p>
+        }
+        <div class="actions">
+          @if (result(); as savedResult) {
+            <button type="button" (click)="retake()">สอบอีกครั้ง</button>
+            <p class="score" role="status">คุณ {{ savedResult.fullName }} สอบได้คะแนน : {{ savedResult.score }}/{{ savedResult.totalQuestions }}</p>
+          } @else {
+            <button type="submit" [disabled]="submitting()">{{ submitting() ? 'กำลังส่ง...' : 'ส่งข้อสอบ' }}</button>
+          }
+        </div>
+      </form>
+    }
+  </section>
+</main>
